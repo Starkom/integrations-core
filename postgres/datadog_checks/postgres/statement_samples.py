@@ -483,6 +483,7 @@ class PostgresStatementSamples(DBMAsyncJob):
             "ddsource": "postgres",
             "ddtags": self._tags_no_db,
             "timestamp": time.time() * 1000,
+            "dbm_type": "activity",
             "active_queries": active_query_rows,
         }
         return event

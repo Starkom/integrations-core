@@ -486,6 +486,7 @@ def test_activity_samples_collection(
         event = dbm_activity_event[0]
         assert event['host'] == "stubbed.hostname"
         assert event['ddsource'] == "postgres"
+        assert event['dbm_type'] == "activity"
         assert len(event['active_queries']) > 0
         # find bob's query.
         bobs_query = None
@@ -498,8 +499,6 @@ def test_activity_samples_collection(
             assert expected_out[key] == bobs_query[key]
         for val in expected_keys:
             assert val in bobs_query
-
-        assert 'query' not in bobs_query
 
         expected_tags = dbm_instance['tags'] + [
             'server:{}'.format(HOST),
