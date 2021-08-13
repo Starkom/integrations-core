@@ -4,7 +4,6 @@ from enum import Enum
 from typing import Dict, Optional, Tuple
 
 import psycopg2
-import six
 from cachetools import TTLCache
 from six import PY2
 
@@ -267,7 +266,7 @@ class PostgresStatementSamples(DBMAsyncJob):
             active_row = {key: val for key, val in row.items() if val is not None}
             active_row['query_signature'] = query_signature
             del active_row['query']
-            return six.ensure_str(json.dumps(active_row, default=default_json_event_encoding))
+            return active_row
 
     def _can_explain_statement(self, obfuscated_statement):
         if obfuscated_statement.startswith('SELECT {}'.format(self._explain_function)):

@@ -490,17 +490,16 @@ def test_activity_samples_collection(
         # find bob's query.
         bobs_query = None
         for query_json in event['active_queries']:
-            if "bob" in query_json:
+            if 'usename' in query_json and query_json['usename'] == "bob":
                 bobs_query = query_json
         assert bobs_query is not None
 
-        active_query_json = json.loads(bobs_query)
         for key in expected_out:
-            assert expected_out[key] == active_query_json[key]
+            assert expected_out[key] == bobs_query[key]
         for val in expected_keys:
-            assert val in active_query_json
+            assert val in bobs_query
 
-        assert 'query' not in active_query_json
+        assert 'query' not in bobs_query
 
         expected_tags = dbm_instance['tags'] + [
             'server:{}'.format(HOST),
